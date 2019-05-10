@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_url_shortner/data/network/url_shortening_api.dart';
 
 class UrlShortner extends ChangeNotifier {
   String shortenedUrl;
@@ -8,10 +9,12 @@ class UrlShortner extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    await Future.delayed(Duration(seconds: 2));
+    final api = UrlShorteningApi();
+
+    shortenedUrl = await api.shortenUrl(longUrl);
 
     isLoading = false;
-    shortenedUrl = DateTime.now().toString();
+
     notifyListeners();
   }
 }
